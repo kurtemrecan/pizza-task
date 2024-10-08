@@ -1,0 +1,11 @@
+.qat-container {
+  margin-top: 75px;
+}
+
+.text-l-left {
+  background-color: #fdc913;
+  padding: 30px;
+  font-size: 30px;
+  border-radius: 0.5rem;
+  border: none;
+}

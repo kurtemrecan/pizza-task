@@ -1,0 +1,42 @@
+.header {
+  background-color: #ce2829; /* Arka plan rengi */
+  padding: 20px;
+  text-align: center;
+}
+
+.logo {
+  width: 470px; /* Logo boyutu */
+  margin: 0 auto; /* Logoyu ortalar */
+}
+.navigation {
+  color: white;
+  font-family: 'barlow';
+}
+.main-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  align-items: center;
+  height: 100vh;
+  font-family: 'barlow';
+  text-align: left;
+  flex-wrap: wrap;
+}
+.price {
+  font-weight: bold;
+  margin-right: 325px;
+}
+.rating {
+  color: gray;
+  margin-left: 40px;
+}
+.options-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  width: 100%;
+}
+.option-group {
+  display: flex;
+  flex-direction: column;
+}
