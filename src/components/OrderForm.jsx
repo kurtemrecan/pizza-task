@@ -16,7 +16,6 @@ import {
   NavLink,
 } from 'reactstrap';
 import './OrderForm.css';
-import extras from '../userInfo';
 import Extras from './extras/Extras';
 import OrderNote from './ordernotes/OrderNote';
 import OrderQuantityAndTotal from './orderpricetotal/OrderQuantityAndTotal';
@@ -25,6 +24,9 @@ export default function OrderForm() {
   const initialSelectedExtras = [1, 3, 5, 6, 13];
   const [selectedExtras, setSelectedExtras] = useState(initialSelectedExtras);
   const [orderNote, setOrderNote] = useState('');
+
+  const [pizzaData, setPizzaData] = useState();
+  const [form, setForm] = useState({});
 
   const handleCheckboxChange = (id) => {
     setSelectedExtras((prev) =>
@@ -115,7 +117,7 @@ export default function OrderForm() {
           <Row className="options-container">
             {/* Boyut Seçimi */}
             <Col md={6}>
-              <FormGroup tag="fieldset">
+              <FormGroup tag="fieldset" style={{ border: 'none' }}>
                 <h2>
                   Boyut Seç <span style={{ color: 'red' }}>*</span>
                 </h2>

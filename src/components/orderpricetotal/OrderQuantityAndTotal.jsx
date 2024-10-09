@@ -70,7 +70,7 @@ const OrderQuantityAndTotal = ({ basePrice, selectedExtras, history }) => {
               fontSize: '18px',
             }}
           >
-            <CardBody>
+            <CardBody style={{ color: 'black' }}>
               <Label>Seçimler:</Label>
               <p style={{ fontSize: '18px' }}>
                 {selectedExtras.length > 5

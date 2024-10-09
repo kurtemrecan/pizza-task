@@ -8,7 +8,7 @@ const extras = [
   { id: 7, name: 'Soğan' },
   { id: 8, name: 'Sucuk' },
   { id: 9, name: 'Biber' },
-  { id: 0, name: 'Kabak' },
+  { id: 10, name: 'Kabak' },
   { id: 11, name: 'Kanada Jambonu' },
   { id: 12, name: 'Domates' },
   { id: 13, name: 'Jalepeno' },
