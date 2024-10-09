@@ -24,9 +24,9 @@ export default function OrderForm() {
   const initialSelectedExtras = [1, 3, 5, 6, 13];
   const [selectedExtras, setSelectedExtras] = useState(initialSelectedExtras);
   const [orderNote, setOrderNote] = useState('');
-
-  const [pizzaData, setPizzaData] = useState();
-  const [form, setForm] = useState({});
+  const [fullName, setFullName] = useState('');
+  const [nameError, setNameError] = useState('');
+  const history = useHistory();
 
   const handleCheckboxChange = (id) => {
     setSelectedExtras((prev) =>
@@ -36,11 +36,18 @@ export default function OrderForm() {
 
   const handleOrderNoteChange = (e) => setOrderNote(e.target.value);
 
-  const history = useHistory();
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // İşlemler
+    // İsim kontrolü
+    if (fullName.length < 3) {
+      setNameError('Adınız en az 3 karakter olmalıdır.');
+      return;
+    } else {
+      setNameError('');
+    }
+
+    // Diğer işlemler (Sipariş gönderme vb.)
+    console.log('Form submitted successfully');
   };
 
   const goToHome = () => {
@@ -170,8 +177,11 @@ export default function OrderForm() {
               placeholder="Minimum 3 harf olmak üzere lütfen ad soyadınızı girin"
               type="text"
               style={{ width: '100%' }}
-              //onChange={handleChange}
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)} // Name state ile bağlanıyor
             />
+            {nameError && <p style={{ color: 'red' }}>{nameError}</p>}{' '}
+            {/* Hata mesajı */}
           </FormGroup>
           <OrderNote
             orderNote={orderNote}
