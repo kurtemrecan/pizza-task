@@ -36,6 +36,12 @@ export default function Cards() {
             />
           </div>
         </div>
+        <div className="centered-text">
+          <p className="red-text">en çok paketlenen menüler</p>
+        </div>
+        <div className="centered-text">
+          <p className="black-text">Acıktıran Kodlara Doyuran Lezzetler</p>
+        </div>
       </div>
     </section>
   );

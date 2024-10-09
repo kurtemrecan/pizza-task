@@ -79,3 +79,21 @@
   color: red;
   background-color: white;
 }
+.centered-text {
+  display: flex;
+  justify-content: center;
+  padding: 14px 0;
+}
+
+.red-text {
+  color: #c53030;
+  font-family: 'Satisfy';
+  font-size: 1.7rem;
+  margin: auto;
+}
+.black-text {
+  color: black;
+  font-family: 'barlow';
+  font-size: 2rem;
+  margin: auto;
+}
