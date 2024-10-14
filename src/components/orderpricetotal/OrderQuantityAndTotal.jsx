@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Button,
-  Row,
-  Col,
-  FormGroup,
-  Label,
-  Input,
-  Card,
-  CardBody,
-} from 'reactstrap';
+import { Button, Row, Col, FormGroup, Label, Card, CardBody } from 'reactstrap';
 import './orderTotal.css';
 
-const OrderQuantityAndTotal = ({ basePrice, selectedExtras, history }) => {
+const OrderQuantityAndTotal = ({
+  basePrice,
+  selectedExtras,
+  history,
+  size,
+  fullName,
+  dough,
+}) => {
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(basePrice);
 
@@ -27,9 +25,15 @@ const OrderQuantityAndTotal = ({ basePrice, selectedExtras, history }) => {
   const decreaseQuantity = () => {
     if (quantity > 1) setQuantity(quantity - 1);
   };
+
   const handleOrderSubmit = () => {
     history.push('/success');
   };
+
+  // Butonun aktif olup olmadığını kontrol et
+  const isButtonDisabled =
+    !size || fullName.length < 3 || selectedExtras.length === 0 || !dough;
+
   return (
     <FormGroup className="qat-container">
       <Row>
@@ -82,6 +86,7 @@ const OrderQuantityAndTotal = ({ basePrice, selectedExtras, history }) => {
                 color="primary"
                 style={{ width: '100%' }}
                 onClick={handleOrderSubmit}
+                disabled={isButtonDisabled} // Buton durumu
               >
                 Sipariş Ver
               </Button>

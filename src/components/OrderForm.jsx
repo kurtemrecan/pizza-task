@@ -71,6 +71,7 @@ export default function OrderForm() {
 
     if (Object.keys(formErrors).length === 0) {
       console.log('Form successfully submitted:', formData);
+      history.push('/success'); // Başarılı gönderim sonrası yönlendirme
     } else {
       setErrors(formErrors);
     }
@@ -79,6 +80,9 @@ export default function OrderForm() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
+    // Hataları yalnızca form gönderildiğinde kontrol et
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
   };
 
   const goToHome = () => {
@@ -88,6 +92,10 @@ export default function OrderForm() {
   const goToOrder = () => {
     history.push('/order');
   };
+
+  // "Sipariş Ver" butonunun aktif olmasını kontrol et
+  const isFormValid =
+    formData.fullName.length >= 3 && formData.size && formData.dough;
 
   return (
     <Container className="order-container">
@@ -197,8 +205,13 @@ export default function OrderForm() {
                 <h2>
                   Hamur Seç <span style={{ color: 'red' }}>*</span>
                 </h2>
-                <Input type="select" name="dough" onChange={handleInputChange}>
-                  <option value="" disabled selected>
+                <Input
+                  type="select"
+                  name="dough"
+                  onChange={handleInputChange}
+                  value={formData.dough || ''}
+                >
+                  <option value="" disabled>
                     Hamur Kalınlığı
                   </option>
                   <option value="ince">İnce</option>
@@ -209,16 +222,13 @@ export default function OrderForm() {
               </FormGroup>
             </Col>
           </Row>
-
           <Extras
             selectedExtras={formData.selectedExtras}
             onCheckboxChange={handleCheckboxChange}
           />
-
           {errors.selectedExtras && (
             <p style={{ color: 'red' }}>{errors.selectedExtras}</p>
           )}
-
           <FormGroup style={{ width: '100%' }}>
             <Label for="fullName">
               Ad Soyad <span style={{ color: 'red' }}>*</span>
@@ -236,7 +246,6 @@ export default function OrderForm() {
               <p style={{ color: 'red' }}>{errors.fullName}</p>
             )}
           </FormGroup>
-
           <OrderNote
             orderNote={formData.orderNote}
             onOrderNoteChange={(e) =>
@@ -247,6 +256,10 @@ export default function OrderForm() {
             basePrice={85.5}
             selectedExtras={formData.selectedExtras}
             history={history}
+            size={formData.size}
+            fullName={formData.fullName}
+            dough={formData.dough}
+            isButtonDisabled={!isFormValid} // Butonun durumunu kontrol et
           />
         </Form>
       </main>
