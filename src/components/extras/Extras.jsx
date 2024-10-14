@@ -13,7 +13,7 @@ const Extras = ({ selectedExtras, onCheckboxChange }) => {
           <FormGroup check key={extra.id} inline>
             <Input
               type="checkbox"
-              id={`extra-${extra.id}`} // unique id for accessibility
+              id={`extra-${extra.id}`}
               checked={selectedExtras.includes(extra.id)}
               onChange={() => onCheckboxChange(extra.id)}
             />

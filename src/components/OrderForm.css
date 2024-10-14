@@ -13,8 +13,6 @@
   font-family: 'barlow';
 }
 .main-container {
-  display: flex;
-  flex-direction: column;
   margin-top: 20px;
   align-items: center;
   height: 100vh;

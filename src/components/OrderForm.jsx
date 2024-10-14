@@ -105,7 +105,7 @@ export default function OrderForm() {
           </Col>
         </Row>
 
-        <Row>
+        <Row className="chef-container">
           <Col>
             <p style={{ color: '#5f5f5f', marginBottom: '30px' }}>
               Frontend Dev olarak hala position:absolute kullanıyorsan bu çok
