@@ -15,17 +15,14 @@ const OrderQuantityAndTotal = ({ basePrice, selectedExtras, history }) => {
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(basePrice);
 
-  // Ekstra malzemelerin fiyatı sabit: 5 TL
   const extraPrice = 5;
 
-  // Toplam fiyatı güncelle
   useEffect(() => {
     const extrasCost =
       selectedExtras.length > 5 ? (selectedExtras.length - 5) * extraPrice : 0;
     setTotalPrice((basePrice + extrasCost) * quantity);
   }, [quantity, selectedExtras, basePrice]);
 
-  // Sipariş adedini artırma/azaltma fonksiyonları
   const increaseQuantity = () => setQuantity(quantity + 1);
   const decreaseQuantity = () => {
     if (quantity > 1) setQuantity(quantity - 1);
@@ -36,7 +33,6 @@ const OrderQuantityAndTotal = ({ basePrice, selectedExtras, history }) => {
   return (
     <FormGroup className="qat-container">
       <Row>
-        {/* Sol tarafta adet seçimi */}
         <Col xs="6" className="text-left">
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button
