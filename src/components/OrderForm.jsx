@@ -21,33 +21,52 @@ import OrderNote from './ordernotes/OrderNote';
 import OrderQuantityAndTotal from './orderpricetotal/OrderQuantityAndTotal';
 
 export default function OrderForm() {
-  const initialSelectedExtras = [1, 3, 5, 6, 13];
-  const [selectedExtras, setSelectedExtras] = useState(initialSelectedExtras);
-  const [orderNote, setOrderNote] = useState('');
-  const [fullName, setFullName] = useState('');
+  const initialFormState = {
+    fullName: '',
+    size: '',
+    dough: '',
+    selectedExtras: [1, 3, 5, 6, 13],
+    orderNote: '',
+  };
+
+  const [formData, setFormData] = useState(initialFormState);
   const [nameError, setNameError] = useState('');
   const history = useHistory();
 
-  const handleCheckboxChange = (id) => {
-    setSelectedExtras((prev) =>
-      prev.includes(id) ? prev.filter((extra) => extra !== id) : [...prev, id]
-    );
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handleOrderNoteChange = (e) => setOrderNote(e.target.value);
+  const handleCheckboxChange = (id) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      selectedExtras: prevData.selectedExtras.includes(id)
+        ? prevData.selectedExtras.filter((extra) => extra !== id)
+        : [...prevData.selectedExtras, id],
+    }));
+  };
+
+  const handleOrderNoteChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      orderNote: value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // İsim kontrolü
-    if (fullName.length < 3) {
+    if (formData.fullName.length < 3) {
       setNameError('Adınız en az 3 karakter olmalıdır.');
       return;
     } else {
       setNameError('');
     }
-
-    // Diğer işlemler (Sipariş gönderme vb.)
-    console.log('Form submitted successfully');
+    console.log('Form submitted successfully', formData);
   };
 
   const goToHome = () => {
@@ -60,7 +79,6 @@ export default function OrderForm() {
 
   return (
     <Container className="order-container ">
-      {/* Navbar */}
       <Navbar style={{ backgroundColor: '#ce2829' }}>
         <NavbarBrand href="/">
           <img
@@ -83,7 +101,6 @@ export default function OrderForm() {
         </Nav>
       </Navbar>
 
-      {/* Main Content */}
       <main className="main-container chef-container">
         <Row className="chef-container" style={{ marginBottom: '30px' }}>
           <Col>
@@ -119,10 +136,8 @@ export default function OrderForm() {
           </Col>
         </Row>
 
-        {/* Form */}
         <Form onSubmit={handleSubmit} className="chef-container">
           <Row className="options-container">
-            {/* Boyut Seçimi */}
             <Col md={6}>
               <FormGroup tag="fieldset" style={{ border: 'none' }}>
                 <h2>
@@ -130,29 +145,54 @@ export default function OrderForm() {
                 </h2>
                 <FormGroup check>
                   <Label check>
-                    <Input type="radio" name="boyut" value="kucuk" /> Küçük
+                    <Input
+                      type="radio"
+                      name="size"
+                      value="kucuk"
+                      checked={formData.size === 'kucuk'}
+                      onChange={handleInputChange}
+                    />{' '}
+                    Küçük
                   </Label>
                 </FormGroup>
                 <FormGroup check>
                   <Label check>
-                    <Input type="radio" name="boyut" value="orta" /> Orta
+                    <Input
+                      type="radio"
+                      name="size"
+                      value="orta"
+                      checked={formData.size === 'orta'}
+                      onChange={handleInputChange}
+                    />{' '}
+                    Orta
                   </Label>
                 </FormGroup>
                 <FormGroup check>
                   <Label check>
-                    <Input type="radio" name="boyut" value="buyuk" /> Büyük
+                    <Input
+                      type="radio"
+                      name="size"
+                      value="buyuk"
+                      checked={formData.size === 'buyuk'}
+                      onChange={handleInputChange}
+                    />{' '}
+                    Büyük
                   </Label>
                 </FormGroup>
               </FormGroup>
             </Col>
 
-            {/* Hamur Seçimi */}
             <Col md={6}>
               <FormGroup>
                 <h2>
                   Hamur Seç <span style={{ color: 'red' }}>*</span>
                 </h2>
-                <Input type="select" name="hamur">
+                <Input
+                  type="select"
+                  name="dough"
+                  value={formData.dough}
+                  onChange={handleInputChange}
+                >
                   <option value="" disabled selected>
                     Hamur Kalınlığı
                   </option>
@@ -164,7 +204,7 @@ export default function OrderForm() {
             </Col>
           </Row>
           <Extras
-            selectedExtras={selectedExtras}
+            selectedExtras={formData.selectedExtras}
             onCheckboxChange={handleCheckboxChange}
           />
           <FormGroup style={{ width: '100%' }}>
@@ -177,19 +217,18 @@ export default function OrderForm() {
               placeholder="Minimum 3 harf olmak üzere lütfen ad soyadınızı girin"
               type="text"
               style={{ width: '100%' }}
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)} // Name state ile bağlanıyor
+              value={formData.fullName}
+              onChange={handleInputChange}
             />
             {nameError && <p style={{ color: 'red' }}>{nameError}</p>}{' '}
-            {/* Hata mesajı */}
           </FormGroup>
           <OrderNote
-            orderNote={orderNote}
+            orderNote={formData.orderNote}
             onOrderNoteChange={handleOrderNoteChange}
           />
           <OrderQuantityAndTotal
             basePrice={85.5}
-            selectedExtras={selectedExtras}
+            selectedExtras={formData.selectedExtras}
             history={history}
           />
         </Form>
